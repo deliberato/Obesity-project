@@ -1,4 +1,4 @@
--- Hospital/ICU Information
+-- Hospital/ICU Information b
 -- ICU Diagnosis - DONE on hadm_id_
 select final_2.hadm_id, primary_dx.icd9_code, primary_dx.short_title, primary_dx.long_title
 from public.final_2
