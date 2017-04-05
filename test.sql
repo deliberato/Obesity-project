@@ -20,3 +20,5 @@ from public.final_2
 left join rrtfirstday
 on final_2.icustay_id = rrtfirstday.icustay_id
 order by icustay_id
+
+-- dfgdfgdfgdfgdg
