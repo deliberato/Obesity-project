@@ -22,3 +22,6 @@ on final_2.icustay_id = rrtfirstday.icustay_id
 order by icustay_id
 
 -- dfgdfgdfgdfgdg
+
+select * 
+from mimiciii.patient
