@@ -5,7 +5,7 @@ Study question:
 "to compare the deviation of laboratory tests utilized in scoring systems from baseline to ICU admission in both obese and normal weight patients, adjusted for the severity of score illness"
 
 Step by step:
-1. Cohort creation - note you need to create a new tablw with a specifi name .
+1. Cohort creation - note you need to create a new table with a specific name .
 2. Demographics I and II
 3. Primary ICD9
 4. ICU procedures in the first 24h
