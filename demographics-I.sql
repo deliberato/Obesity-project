@@ -37,7 +37,7 @@ INNER JOIN mimiciii.patients pat
 ORDER BY ie.subject_id, adm.admittime, ie.intime
 ) 
 select final_2.icustay_id, gender, age, ethnicity,insurance, marital_status, admittime, dischtime, diagnosis, los_hospital, hospital_expire_flag,admission_type,ICU_type, intime, outtime, los_icu
-from final_2 -- replace by the name of table created by you in the cohort selection
+from final_2 -- replace by the name of the table created by you in the cohort selection
 Left join t1
 On final_2.icustay_id =t1.icustay_id
 Order by icustay_id
