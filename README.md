@@ -2,7 +2,7 @@
 Description of the obesity project done with MIMIC-III database on March 2017.
 
 Study question:
-"to compare the deviation of laboratory tests utilized in scoring systems from baseline to ICU admission in both obese and normal weight patients, adjusted for the severity of score illness"
+"to compare the deviation of laboratory results utilized in scoring systems from baseline to ICU admission in both obese and normal weight patients, adjusted for the severity of score illness"
 
 Step by step:
 1. Cohort creation - note you need to create a new table with a specific name .
