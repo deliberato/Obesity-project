@@ -360,7 +360,6 @@ plot(fit_bic)
  # Extracting all outputs of the multivariate linear regression
  
 ```{r}
-sjPlot::sjt.lm(fit_hgb)
 
 sjPlot::sjt.lm(fit_wbc)
 
@@ -376,4 +375,4 @@ sjPlot::sjt.lm(fit_bun)
 
 sjPlot::sjt.lm(fit_bic)
 
-sjPlot::sjt.lm(fit_log_glucose)
+```
