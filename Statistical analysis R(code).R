@@ -39,7 +39,7 @@ final_4$age[final_4$age ==300.0011] <- 91.4
 
 # adjusting height and BMI
 
-I looked back the database searhing for the correct height based by the hadm_id. I looked the echodata (available on MIMIC database). After correcting the height I excluded 1 patient because of his new BMI and 1 patient because I couldn't find his/her correct height.This is the explanation why obese patients have 1258 individual
+I looked back the database searching for the correct height based by the hadm_id. I looked the echodata (available on MIMIC database). After correcting the height I excluded 1 patient because of his new BMI and 1 patient because I couldn't find his/her correct height.This is the explanation why obese patients have 1258 individual
 
 #Adjusting some variables like Sodium
 
