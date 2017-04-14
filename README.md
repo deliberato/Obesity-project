@@ -5,7 +5,7 @@ Study question:
 "to compare the deviation of laboratory results utilized in scoring systems from baseline to ICU admission in both obese and normal weight patients, adjusted for the severity of score illness (SAPS-II or SOFA)"
 
 Step by step:
-1. Cohort creation - note you need to create a new table with a specific name .
+1. Cohort creation - note you need to create a new table with a specific name for each cohort (normal weight and obese).
 2. Demographics I and II
 3. Primary ICD9
 4. ICU procedures in the first 24h
