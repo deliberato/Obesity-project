@@ -379,7 +379,7 @@ sjPlot::sjt.lm(fit_bic)
 
 ```
 
-# Creation of subset without any missing variable and analyzing the impact of the statiscally significant deviations in the 30day mortality
+# Creation of subset without any missing variable and analyzing the impact of the statiscally significant deviations in the hospital mortality
 
 ```{r}
 
@@ -387,11 +387,11 @@ total_s<-subset(total, !is.na(deviation_wbc) & !is.na(deviation_bun) & !is.na(de
 nrow(total)
 nrow(total_s)
 
-lr<-glm (thirtyday_expire_flag ~ sapsii + sofa_score + age + wbc_icu + bun_icu + log_cr_icu, data=total_s, family = binomial)
+lr<-glm (hospital_expire_flag ~ sapsii + sofa_score + age + wbc_icu + bun_icu + log_cr_icu, data=total_s, family = binomial)
 
 summary(lr)
 
-lr1<-glm (thirtyday_expire_flag ~ sapsii + sofa_score + age + wbc_icu + deviation_wbc + bun_icu +  deviation_bun + log_cr_icu + deviation_log_creatinine, data=total_s, family = binomial)
+lr1<-glm (hospital_expire_flag ~ sapsii + sofa_score + age + wbc_icu + deviation_wbc + bun_icu +  deviation_bun + log_cr_icu + deviation_log_creatinine, data=total_s, family = binomial)
 summary(lr1)
 
 anova(lr1, lr, test ="Chisq")
