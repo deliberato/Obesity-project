@@ -305,7 +305,7 @@ total$log_cr_icu<- log10(total$cr_icu)
 
 total$deviation_log_creatinine <- total$log_cr_icu - total$log_cr_baseline
 
-with(total,t.test(deviation_log_glucose ~bmi_group))
+with(total,t.test(deviation_log_creatinine~bmi_group))
 
 fit_log_creatinine <-lm(deviation_log_creatinine~age+gender+elixhauser+icu_type+bmi_group+log_cr_baseline +sofa_score, data= total)
 summary(fit_log_creatinine)
