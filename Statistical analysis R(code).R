@@ -154,8 +154,8 @@ chisq.test(r)
  with(final_4 , qqnorm((avgbic_baseline)))
  with(final_2 , qqnorm((avgbic_baseline)))
  
- with(final_4 , qqnorm(log10(avgcreatinine_baseline)))
- with(final_2 , qqnorm(log10(avgcreatinine_baseline)))
+ with(final_4 , qqnorm(avgcreatinine_baseline)))
+ with(final_2 , qqnorm(avgcreatinine_baseline)))
  
  with(final_4 , qqnorm((avgplatelets_baseline)))
  with(final_2 , qqnorm((avgplatelets_baseline)))
@@ -180,8 +180,8 @@ with(final_2, qqnorm((avgbun_baseline - bun_icu)))
 with(final_4 , qqnorm((avgbic_baseline - bic_icu)))
 with(final_2 , qqnorm((avgbic_baseline - bic_icu)))
 
-with(final_4 , qqnorm(log10(avgcreatinine_baseline) -log10(cr_icu)))
-with(final_2, qqnorm(log10(avgcreatinine_baseline) -log10(cr_icu)))
+with(final_4 , qqnorm(avgcreatinine_baseline -cr_icu)))
+with(final_2, qqnorm(avgcreatinine_baseline - cr_icu)))
 
 with(final_4 , qqnorm((avgplatelets_baseline - platelet_icu)))
 with(final_2 , qqnorm((avgplatelets_baseline - platelet_icu)))
@@ -259,19 +259,25 @@ final_4$deviation_bic	<-final_4$bic_icu - final_4$avgbic_baseline
        
  t.test(final_2$deviation_bic, final_4$deviation_bic, paired = F)
 
-## Creating Log_bun , log_creatinine , deviation and t test .
+## Creating log_bun , log_creatinine , deviation and t test .
 ```{r}
 final_4$log_bun_baseline<- log10(final_4$avgbun_baseline)
 final_4$log_bun_icu<- log10(final_4$bun_icu)
 final_4$deviation_log_bun<- final_4$log_bun_icu - final_4$log_bun_baseline
 mean (final_4$deviation_log_bun, na.rm = TRUE)
 sd(final_4$deviation_log_bun, na.rm = TRUE)
+with(final_4 , qqnorm(log10(avgbun_baseline)))
+with(final_4. , qqnorm(log10(avgbun_baseline) -log10(bun_icu)))
 
+ 
 final_2$log_bun_baseline<- log10(final_2$avgbun_baseline)
 final_2$log_bun_icu<- log10(final_2$bun_icu)
 final_2$deviation_log_bun<-final_2$log_bun_icu - final_2$log_bun_baseline
 mean (final_2$deviation_log_bun, na.rm = TRUE)
 sd(final_2$deviation_log_bun, na.rm = TRUE)
+with(final_2 , qqnorm(log10(avgbun_baseline)))
+with(final_2 , qqnorm(log10(avgbun_baseline) -log10(bun_icu)))
+
 
 t.test(final_4$deviation_log_bun,final_2$deviation_log_bun, paired= FALSE)
 
@@ -280,6 +286,16 @@ final_4$log_cr_icu<- log10(final_4$cr_icu)
 final_4$deviation_log_creatinine<- final_4$log_cr_icu - final_4$log_creatinine_baseline
 mean (final_4$deviation_log_creatinine, na.rm = TRUE)
 sd(final_4$deviation_log_creatinine, na.rm = TRUE)
+with(final_4 , qqnorm(log10(avgcreatinine_baseline)))
+with(final_4 , qqnorm(log10(avgcreatinine_baseline) -log10(cr_icu)))
+
+final_2$log_creatinine_baseline<- log10(final_2$avgcreatinine_baseline)
+final_2$log_cr_icu<- log10(final_2$cr_icu)
+final_2$deviation_log_creatinine<-final_2$log_cr_icu - final_2$log_creatinine_baseline
+mean (final_2$deviation_log_creatinine, na.rm = TRUE)
+sd(final_2$deviation_log_creatinine, na.rm = TRUE)
+with(final_2 , qqnorm(log10(avgcreatinine_baseline)))
+with(final_2 , qqnorm(log10(avgcreatinine_baseline) -log10(cr_icu)))
 
 t.test(final_4$deviation_log_creatinine, final_2$deviation_log_creatinine, paired= FALSE)
 ```
