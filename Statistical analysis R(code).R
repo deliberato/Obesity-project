@@ -140,7 +140,7 @@ chisq.test(r)
 
 ```{r}
  with(final_4 , qqnorm((avgwbc_baseline)))
- with(inal_2 , qqnorm((avgwbc_baseline)))
+ with(final_2 , qqnorm((avgwbc_baseline)))
  
  with(final_4. , qqnorm((avgsodium_baseline)))
  with(final_2 , qqnorm((avgsodium_baseline)))
