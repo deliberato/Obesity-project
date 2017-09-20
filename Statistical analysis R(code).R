@@ -135,6 +135,60 @@ chisq.test(v)
 r<-matrix(c(32,737,35,1221), ncol =2)
 chisq.test(r)
 ```
+
+## QQ plots (to assess normality) for baseline labs on both obese and normal weight
+
+```{r}
+ with(final_4 , qqnorm((avgwbc_baseline)))
+ with(inal_2 , qqnorm((avgwbc_baseline)))
+ 
+ with(final_4. , qqnorm((avgsodium_baseline)))
+ with(final_2 , qqnorm((avgsodium_baseline)))
+ 
+ with(final_4 , qqnorm((avgpotassium_baseline)))
+ with(final_2 , qqnorm((avgpotassium_baseline)))
+ 
+ with(final_4 , qqnorm((avgbun_baseline)))
+ with(final_2 , qqnorm((avgbun_baseline)))
+ 
+ with(final_4 , qqnorm((avgbic_baseline)))
+ with(final_2 , qqnorm((avgbic_baseline)))
+ 
+ with(final_4 , qqnorm(log10(avgcreatinine_baseline)))
+ with(final_2 , qqnorm(log10(avgcreatinine_baseline)))
+ 
+ with(final_4 , qqnorm((avgplatelets_baseline)))
+ with(final_2 , qqnorm((avgplatelets_baseline)))
+```
+
+## QQ Plots for the diference (ICU-baseline)for obese and normal weight
+
+
+```{r}
+with(final_4 , qqnorm((avgwbc_baseline - wbc_icu)))
+with(final_2, qqnorm((avgwbc_baseline - wbc_icu)))
+
+with(final_4, qqnorm((avgsodium_baseline - na_icu)))
+with(final_2 , qqnorm((avgsodium_baseline - na_icu)))
+
+with(final_4 , qqnorm((avgpotassium_baseline - k_icu)))
+with(final_2 , qqnorm((avgpotassium_baseline - k_icu)))
+
+with(final_4, qqnorm((avgbun_baseline - bun_icu)))
+with(final_2, qqnorm((avgbun_baseline - bun_icu)))
+
+with(final_4 , qqnorm((avgbic_baseline - bic_icu)))
+with(final_2 , qqnorm((avgbic_baseline - bic_icu)))
+
+with(final_4 , qqnorm(log10(avgcreatinine_baseline) -log10(cr_icu)))
+with(final_2, qqnorm(log10(avgcreatinine_baseline) -log10(cr_icu)))
+
+with(final_4 , qqnorm((avgplatelets_baseline - platelet_icu)))
+with(final_2 , qqnorm((avgplatelets_baseline - platelet_icu)))
+```
+
+
+
 # Baseline comparison (lab results between normal weight and obese patients)
 
 
@@ -143,7 +197,7 @@ wilcox.test(final_2$avgwbc_baseline, final_4$avgwbc_baseline, correct = TRUE)
 
 wilcox.test(final_2$avgsodium_baseline, final_4$avgsodium_baseline, correct = TRUE)
 
-t.test(final_2$avgpotassium_baseline, final_4$avgpotassium_baseline, paired = FALSE)
+wilcox.test(final_2$avgpotassium_baseline, final_4$avgpotassium_baseline, correct = TRUE)
 
 wilcox.test(final_2$avgbun_baseline, final_4$avgbun_baseline, correct = TRUE)
 
@@ -202,14 +256,32 @@ final_4$deviation_bic	<-final_4$bic_icu - final_4$avgbic_baseline
  t.test(final_2$deviation_na, final_4$deviation_na, paired = F)
   
  t.test(final_2$deviation_k, final_4$deviation_k, paired = F)
-   
- t.test(final_2$deviation_cr, final_4$deviation_cr, paired = F)
-    
- t.test(final_2$deviation_bun, final_4$deviation_bun, paired = F)
-     
+       
  t.test(final_2$deviation_bic, final_4$deviation_bic, paired = F)
 
+## Creating Log_bun , log_creatinine , deviation and t test .
+```{r}
+final_4$log_bun_baseline<- log10(final_4$avgbun_baseline)
+final_4$log_bun_icu<- log10(final_4$bun_icu)
+final_4$deviation_log_bun<- final_4$log_bun_icu - final_4$log_bun_baseline
+mean (final_4$deviation_log_bun, na.rm = TRUE)
+sd(final_4$deviation_log_bun, na.rm = TRUE)
 
+final_2$log_bun_baseline<- log10(final_2$avgbun_baseline)
+final_2$log_bun_icu<- log10(final_2$bun_icu)
+final_2$deviation_log_bun<-final_2$log_bun_icu - final_2$log_bun_baseline
+mean (final_2$deviation_log_bun, na.rm = TRUE)
+sd(final_2$deviation_log_bun, na.rm = TRUE)
+
+t.test(final_4$deviation_log_bun,final_2$deviation_log_bun, paired= FALSE)
+
+final_4$log_creatinine_baseline<- log10(final_4$avgcreatinine_baseline)
+final_4$log_cr_icu<- log10(final_4$cr_icu)
+final_4$deviation_log_creatinine<- final_4$log_cr_icu - final_4$log_creatinine_baseline
+mean (final_4$deviation_log_creatinine, na.rm = TRUE)
+sd(final_4$deviation_log_creatinine, na.rm = TRUE)
+
+t.test(final_4$deviation_log_creatinine, final_2$deviation_log_creatinine, paired= FALSE)
 ```
 
 ### Merging the two files normal weight(final_2) with obese (final_4)
@@ -322,17 +394,23 @@ plot(fit_log_creatinine)
 
 ```
 
-```{r multiple linear regression BUN}
+```{r multiple linear regression log BUN}
 
-fit_bun <-lm(deviation_bun~age+gender+elixhauser+icu_type+bmi_group+avgbun_baseline+sapsii, data= total)
-summary(fit_bun)
+total$log_bun_baseline<- log10(total$avgbun_baseline)
+total$log_bun_icu<- log10(total$bun_icu)
+total$deviation_log_bun <- total$log_bun_icu - total$log_bun_baseline
 
-drop1(fit_bun, test="F")
+with(total,t.test(deviation_log_bun~bmi_group))
 
-sjPlot::sjt.lm(fit_bun)
+fit_log_bun <-lm(deviation_log_bun~age+gender+elixhauser+icu_type+bmi_group+log_bun_baseline +sofa_score, data= total)
+summary(fit_log_bun)
+
+drop1(fit_log_bun, test="F")
+
+sjPlot::sjt.lm(fit_log_bun)
 
 par(mfcol=c(2,2))
-plot(fit_bun)
+plot(fit_log_bun)
 
 ```
 
@@ -371,7 +449,7 @@ sjPlot::sjt.lm(fit_k)
 
 sjPlot::sjt.lm(fit_log_creatinine)
 
-sjPlot::sjt.lm(fit_bun)
+sjPlot::sjt.lm(fit_log_bun)
 
 sjPlot::sjt.lm(fit_bic)
 
@@ -383,15 +461,14 @@ sjPlot::sjt.lm(fit_bic)
 
 ```{r}
 
-total_s<-subset(total, !is.na(deviation_wbc) & !is.na(deviation_bun) & !is.na(deviation_log_creatinine))
+total_s<-subset(total, !is.na(deviation_wbc) & !is.na(deviation_log_bun) & !is.na(deviation_log_creatinine))
 nrow(total)
 nrow(total_s)
 
-lr<-glm (hospital_expire_flag ~ sapsii + sofa_score + age + wbc_icu + bun_icu + log_cr_icu, data=total_s, family = binomial)
-
+lr<-glm (hospital_expire_flag ~ sapsii + sofa_score + age + wbc_icu + log_bun_icu + log_cr_icu, data=total_s, family = binomial)
 summary(lr)
 
-lr1<-glm (hospital_expire_flag ~ sapsii + sofa_score + age + wbc_icu + deviation_wbc + bun_icu +  deviation_bun + log_cr_icu + deviation_log_creatinine, data=total_s, family = binomial)
+lr1<-glm (hospital_expire_flag ~ sapsii + sofa_score + age + wbc_icu + deviation_wbc + log_bun_icu +  deviation_log_bun + log_cr_icu + deviation_log_creatinine, data=total_s, family = binomial)
 summary(lr1)
 
 anova(lr1, lr, test ="Chisq")
